@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Auréline
+
+A boutique art marketplace prototype — original paintings, sculpture, and photography from independent and gallery-represented artists. Built with Next.js (App Router), TypeScript, and Tailwind CSS.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## AI Features (Ask Auré & Room Preview)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Two features call the real Claude API and need an Anthropic API key:
 
-## Learn More
+- **Ask Auré** (`/api/concierge`) — a chat-based art advisor grounded on the mock catalog.
+- **AI Room Preview** (`/api/room-preview`, on any artwork detail page) — Claude Vision suggests a wall placement for an uploaded room photo; the artwork is then composited client-side with drag/resize/rotate controls to fine-tune.
 
-To learn more about Next.js, take a look at the following resources:
+Set your key in `.env.local` (not committed):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+ANTHROPIC_API_KEY=sk-ant-...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Without a key, both features fail gracefully with an in-UI message rather than erroring.
 
-## Deploy on Vercel
+## What's Real vs. Mocked
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- All catalog data (artworks, artists, collections, orders, favorites) lives in `src/lib/data/` as static TypeScript — there is no database or authentication. The Collector Dashboard is a fixed mock user.
+- Artwork/artist imagery is generated locally (`src/lib/placeholder-art.ts`) as deterministic abstract SVGs, so the whole catalog renders identically offline without depending on an external image host.
+- "Reserve This Piece," favoriting, and the certificate viewer are UI-only interactions (no backend/persistence).
+- Ask Auré and Room Preview are the only two features that make real network calls, to the Anthropic API.
