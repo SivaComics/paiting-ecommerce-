@@ -10,6 +10,7 @@ import { PressMentions } from "@/components/artist/PressMentions";
 import { ArtistWorksGrid } from "@/components/artist/ArtistWorksGrid";
 import { RevealOnScroll } from "@/components/ui/motion";
 import { BadgeCheck } from "lucide-react";
+import { SITE_NAME } from "@/lib/site";
 
 export function generateStaticParams() {
   return artists.map((a) => ({ slug: a.slug }));
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const artist = getArtistBySlug(slug);
   if (!artist) return {};
   return {
-    title: `${artist.name} — Auréline`,
+    title: `${artist.name} — ${SITE_NAME}`,
     description: artist.tagline,
   };
 }

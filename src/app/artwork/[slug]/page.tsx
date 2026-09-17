@@ -2,10 +2,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { artworks, getArtworkBySlug } from "@/lib/data/artworks";
 import { getArtistById } from "@/lib/data/artists";
-import { formatDimensions } from "@/lib/format";
+import { formatArtworkDetails } from "@/lib/format";
+import { ARTIST_NAME, SITE_NAME } from "@/lib/site";
 import { ZoomableImage } from "@/components/artwork/ZoomableImage";
 import { ProvenanceAccordion } from "@/components/artwork/ProvenanceAccordion";
 import { PurchasePanel } from "@/components/artwork/PurchasePanel";
+import { PaintingStory } from "@/components/artwork/PaintingStory";
 import { RoomPreviewTool } from "@/components/artwork/RoomPreviewTool";
 import { HairlineDivider } from "@/components/ui/HairlineDivider";
 import { RevealOnScroll } from "@/components/ui/motion";
@@ -20,8 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!artwork) return {};
   const artist = getArtistById(artwork.artistId);
   return {
-    title: `${artwork.title} by ${artist?.name} — Auréline`,
-    description: artwork.description,
+    title: `${artwork.reference} by ${artist?.name} — ${SITE_NAME}`,
+    description:
+      artwork.description || artwork.observation || `${artwork.reference}, an original painting by ${ARTIST_NAME}.`,
   };
 }
 
@@ -31,64 +34,67 @@ export default async function ArtworkDetailPage({ params }: { params: Promise<{ 
   if (!artwork) notFound();
 
   const artist = getArtistById(artwork.artistId);
-  const artworkAspect = artwork.dimensions.width / artwork.dimensions.height;
+  const details = formatArtworkDetails(artwork);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
-      <p className="text-xs text-espresso-soft mb-8">
-        <Link href="/discover" className="hover:text-copper transition-colors duration-300 ease-premium">
-          Discover
+    <div className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+      <p className="text-xs text-espresso-soft mb-10">
+        <Link href="/#paintings" className="hover:text-copper-deep transition-colors duration-300 ease-premium">
+          The Paintings
         </Link>{" "}
-        / {artwork.title}
+        / {artwork.reference}
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_0.8fr] gap-12">
         <RevealOnScroll>
           <ZoomableImage
             images={artwork.images}
-            alt={`${artwork.title}, ${artwork.year}, ${artwork.medium.toLowerCase()} by ${artist?.name ?? ""}`}
+            aspect={artwork.imageAspect}
+            alt={`${artwork.reference} by ${ARTIST_NAME}`}
           />
         </RevealOnScroll>
 
         <RevealOnScroll delay={0.05}>
-          <p className="text-xs font-sans uppercase tracking-wider text-copper mb-2">{artwork.medium}</p>
+          <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-copper-deep mb-3">{artwork.reference}</p>
           <h1 className="font-serif text-3xl text-espresso text-balance-pretty">{artwork.title}</h1>
           {artist && (
             <Link
-              href={`/artist/${artist.slug}`}
-              className="mt-2 inline-block font-serif text-lg text-espresso-soft hover:text-copper transition-colors duration-300 ease-premium"
+              href="/#work"
+              className="mt-2 inline-block font-serif text-lg text-espresso-soft hover:text-copper-deep transition-colors duration-300 ease-premium"
             >
               {artist.name}
             </Link>
           )}
-          <p className="mt-1 text-sm text-espresso-soft">{artwork.year}</p>
 
           <HairlineDivider className="my-6" />
 
           <dl className="space-y-3 text-sm">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-6">
               <dt className="text-espresso-soft">Medium</dt>
-              <dd className="text-espresso text-right">{artwork.materials}</dd>
+              <dd className="text-espresso text-right">{details.medium}</dd>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-6">
               <dt className="text-espresso-soft">Dimensions</dt>
-              <dd className="text-espresso text-right">{formatDimensions(artwork.dimensions)}</dd>
+              <dd className="text-espresso text-right">{details.dimensions}</dd>
+            </div>
+            <div className="flex justify-between gap-6">
+              <dt className="text-espresso-soft">Year</dt>
+              <dd className="text-espresso text-right">{details.year}</dd>
             </div>
             {artwork.edition && (
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-6">
                 <dt className="text-espresso-soft">Edition</dt>
                 <dd className="text-espresso text-right">{artwork.edition}</dd>
               </div>
             )}
-            <div className="flex justify-between">
-              <dt className="text-espresso-soft">Region</dt>
-              <dd className="text-espresso text-right">{artwork.region}</dd>
-            </div>
           </dl>
 
           <HairlineDivider className="my-6" />
 
-          <p className="text-sm text-espresso-soft leading-relaxed">{artwork.description}</p>
+          {artwork.description && (
+            <p className="text-base text-espresso-soft leading-relaxed">{artwork.description}</p>
+          )}
+          <PaintingStory artwork={artwork} />
 
           <ProvenanceAccordion
             provenance={artwork.provenance}
@@ -99,8 +105,8 @@ export default async function ArtworkDetailPage({ params }: { params: Promise<{ 
 
           <RoomPreviewTool
             artworkImage={artwork.images[0]}
-            artworkAspect={artworkAspect}
-            artworkTitle={artwork.title}
+            artworkAspect={artwork.imageAspect}
+            artworkTitle={artwork.reference}
           />
         </RevealOnScroll>
 

@@ -2,9 +2,10 @@ import { Suspense } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CollectionsStrip } from "@/components/discover/CollectionsStrip";
 import { DiscoverExplorer } from "@/components/discover/DiscoverExplorer";
+import { SITE_NAME } from "@/lib/site";
 
 export const metadata = {
-  title: "Discover — Auréline",
+  title: `Discover — ${SITE_NAME}`,
   description: "Browse curated collections of original paintings, sculpture, and photography.",
 };
 

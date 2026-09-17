@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
-import { CornerFrame } from "@/components/ui/CornerFrame";
 import { useMountedReducedMotion } from "@/components/ui/motion";
 
-export function ZoomableImage({ images, alt }: { images: string[]; alt: string }) {
+export function ZoomableImage({ images, alt, aspect = 1 }: { images: string[]; alt: string; aspect?: number }) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const reduced = useMountedReducedMotion();
@@ -23,11 +22,12 @@ export function ZoomableImage({ images, alt }: { images: string[]; alt: string }
 
   return (
     <div>
-      <div className="relative bg-cream-deep group">
+      <div className="copper-frame group">
         <button
           type="button"
           onClick={() => setLightbox(true)}
-          className="relative block w-full aspect-square overflow-hidden cursor-zoom-in"
+          className="relative block w-full overflow-hidden bg-cream-deep cursor-zoom-in"
+          style={{ aspectRatio: String(aspect) }}
           aria-label="Open full-screen zoom view"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -44,7 +44,6 @@ export function ZoomableImage({ images, alt }: { images: string[]; alt: string }
             <ZoomIn size={14} strokeWidth={1.5} />
             Zoom
           </span>
-          <CornerFrame />
         </button>
       </div>
 
@@ -59,7 +58,7 @@ export function ZoomableImage({ images, alt }: { images: string[]; alt: string }
               aria-pressed={i === active}
               className={clsx(
                 "relative h-16 w-16 overflow-hidden border transition-colors duration-300 ease-premium",
-                i === active ? "border-copper" : "border-hairline hover:border-copper/50"
+                i === active ? "copper-outline" : "border-hairline hover:border-copper/50"
               )}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

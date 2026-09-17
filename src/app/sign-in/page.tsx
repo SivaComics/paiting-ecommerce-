@@ -8,6 +8,7 @@ import { AuthShell } from "@/components/auth/AuthShell";
 import { AuthField } from "@/components/auth/AuthField";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/lib/auth-context";
+import { SITE_NAME } from "@/lib/site";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function SignInPage() {
       subtitle="Access your saved favorites, followed artists, and collection."
       footer={
         <>
-          New to Auréline?{" "}
+          New to {SITE_NAME}?{" "}
           <Link href="/sign-up" className="text-copper hover:underline">
             Create an account
           </Link>

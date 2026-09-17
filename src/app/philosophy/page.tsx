@@ -7,9 +7,10 @@ import { SequenceDiagram } from "@/components/philosophy/SequenceDiagram";
 import { NineColoursIllustration } from "@/components/philosophy/NineColoursIllustration";
 import { YinYangIllustration } from "@/components/philosophy/YinYangIllustration";
 import { PanchaBhuthaBands } from "@/components/philosophy/PanchaBhuthaBands";
+import { SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "The Framework — Auréline",
+  title: `The Framework — ${SITE_NAME}`,
   description:
     "The artistic philosophy behind the collection: geometry, space, and the compressed cosmologies these paintings draw from.",
 };

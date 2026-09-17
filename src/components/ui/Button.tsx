@@ -2,15 +2,19 @@ import Link from "next/link";
 import { clsx } from "clsx";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost" | "copper" | "outline-light";
+type Variant = "primary" | "secondary" | "ghost" | "copper" | "copper-outline" | "outline-light";
 type Size = "sm" | "md" | "lg";
 
 const variantClasses: Record<Variant, string> = {
+  // Copper stays an accent, never a fill: the hover state adds a copper
+  // outline to the dark button rather than flooding it with copper.
   primary:
-    "bg-espresso text-cream hover:bg-copper hover:-translate-y-0.5 hover:shadow-copper-glow active:translate-y-0 transition-all duration-300 ease-premium",
+    "bg-espresso text-cream border border-espresso hover:copper-outline hover:bg-espresso-soft transition-colors duration-500 ease-premium",
   secondary:
     "bg-transparent text-espresso border border-espresso/30 hover:border-copper hover:text-copper hover:-translate-y-0.5 transition-all duration-300 ease-premium",
   ghost: "bg-transparent text-espresso hover:text-copper transition-colors duration-300 ease-premium",
+  "copper-outline":
+    "copper-outline bg-transparent text-espresso hover:bg-copper/5 hover:text-copper-deep transition-colors duration-500 ease-premium",
   copper:
     "bg-copper text-cream hover:bg-copper-light hover:-translate-y-0.5 hover:shadow-copper-glow active:translate-y-0 transition-all duration-300 ease-premium",
   "outline-light":
@@ -19,8 +23,8 @@ const variantClasses: Record<Variant, string> = {
 
 const sizeClasses: Record<Size, string> = {
   sm: "px-4 py-2 text-xs tracking-wide",
-  md: "px-6 py-3 text-sm tracking-wide",
-  lg: "px-8 py-4 text-sm tracking-widest",
+  md: "px-7 py-3.5 text-[12px] tracking-[0.22em]",
+  lg: "px-9 py-4 text-[12px] tracking-[0.24em]",
 };
 
 interface BaseProps {

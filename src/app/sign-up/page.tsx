@@ -8,6 +8,7 @@ import { AuthShell } from "@/components/auth/AuthShell";
 import { AuthField } from "@/components/auth/AuthField";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/lib/auth-context";
+import { SITE_NAME } from "@/lib/site";
 
 export default function SignUpPage() {
   const [name, setName] = useState("");
@@ -35,7 +36,7 @@ export default function SignUpPage() {
 
   return (
     <AuthShell
-      eyebrow="Join Auréline"
+      eyebrow={`Join ${SITE_NAME}`}
       title="Create Your Account"
       subtitle="Save favorites, follow artists, and track your collection in one place."
       footer={
@@ -95,7 +96,7 @@ export default function SignUpPage() {
           {loading ? <Loader2 size={16} className="animate-spin" /> : "Create Account"}
         </Button>
         <p className="text-xs text-espresso-soft leading-relaxed">
-          By creating an account, you agree to Auréline&apos;s collector terms and privacy practices.
+          By creating an account, you agree to {SITE_NAME}&apos;s collector terms and privacy practices.
         </p>
       </form>
     </AuthShell>

@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { BadgeCheck, ShieldCheck, Truck } from "lucide-react";
 import { FadeIn } from "@/components/ui/motion";
 import { artworkImage } from "@/lib/placeholder-art";
+import { SITE_NAME } from "@/lib/site";
 
 const showcaseImage = artworkImage("auth-showcase", ["#B87333", "#2A2420", "#C9975C", "#EAE3D6"], {
   style: "painterly",
@@ -37,14 +38,14 @@ export function AuthShell({
         <div className="absolute inset-0 bg-gradient-espresso-aurora opacity-90" />
         <div className="relative z-10 flex h-full flex-col justify-between p-14">
           <Link href="/" className="font-serif text-2xl tracking-wide text-cream">
-            Auréline
+            {SITE_NAME}
           </Link>
           <div>
             <p className="font-serif text-3xl xl:text-4xl text-cream leading-snug text-balance-pretty max-w-md">
               &ldquo;Collecting should feel like discovery, not a transaction.&rdquo;
             </p>
             <p className="mt-4 text-sm text-cream/70 uppercase tracking-wider">
-              The Auréline Curatorial Team
+              The {SITE_NAME} Curatorial Team
             </p>
           </div>
           <ul className="space-y-4">
@@ -63,7 +64,7 @@ export function AuthShell({
       <div className="flex items-center justify-center px-6 py-16 sm:py-20 bg-gradient-cream-blush">
         <FadeIn className="w-full max-w-sm">
           <Link href="/" className="lg:hidden font-serif text-2xl tracking-wide text-espresso block mb-10 text-center">
-            Auréline
+            {SITE_NAME}
           </Link>
           <p className="text-xs font-sans font-medium uppercase tracking-[0.2em] text-copper mb-3 text-center lg:text-left">
             {eyebrow}

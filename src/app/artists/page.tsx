@@ -4,10 +4,11 @@ import { Badge } from "@/components/ui/Badge";
 import { RevealOnScroll, ZoomOnHover } from "@/components/ui/motion";
 import { artists } from "@/lib/data/artists";
 import { BadgeCheck } from "lucide-react";
+import { SITE_NAME } from "@/lib/site";
 
 export const metadata = {
-  title: "Artists — Auréline",
-  description: "Independent and gallery-represented artists working with Auréline.",
+  title: `Artists — ${SITE_NAME}`,
+  description: `Artists working with ${SITE_NAME}.`,
 };
 
 export default function ArtistsPage() {
@@ -16,7 +17,7 @@ export default function ArtistsPage() {
       <SectionHeading
         eyebrow="The Artists"
         title="Independent & Gallery-Represented"
-        description="Painters, sculptors, and photographers from around the world, each authenticated and represented on Auréline."
+        description={`Painters, sculptors, and photographers represented on ${SITE_NAME}.`}
         className="mb-12"
       />
 

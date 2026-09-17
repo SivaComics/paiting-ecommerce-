@@ -24,21 +24,35 @@ export interface ProvenanceEntry {
 export interface Artwork {
   id: string;
   slug: string;
+  /** Final title, or the [TBC: title] placeholder until the client confirms it. */
   title: string;
+  /** Catalogue label shown until real titles arrive, e.g. "Painting No. 01". */
+  reference: string;
   artistId: string;
-  year: number;
+  /** null until confirmed by the client. */
+  year: number | null;
   medium: Medium;
-  materials: string;
-  dimensions: Dimensions;
+  /** e.g. "Acrylic on canvas". null until confirmed by the client. */
+  materials: string | null;
+  /** null until confirmed by the client. */
+  dimensions: Dimensions | null;
   edition?: string;
-  price: number;
+  /** null until confirmed by the client; shown as "Price on request". */
+  price: number | null;
   currency: "USD";
   images: string[];
+  /** Width / height of the displayed image, used for layout. */
+  imageAspect: number;
   collectionIds: string[];
   colorPalette: string[];
   region: string;
   availability: Availability;
+  /** Descriptive text drawn from the client documents; empty when none applies to this work. */
   description: string;
+  /** Plain description of what is visible in the painting — no claimed meaning or intent. */
+  observation?: string;
+  /** One of the artist's own published statements, shown with an honest caption of what it is about. */
+  artistQuote?: { key: import("./artist-words").ArtistQuoteKey; about: string };
   provenance: ProvenanceEntry[];
   exhibitionHistory: ProvenanceEntry[];
   framingOptions: FramingOption[];

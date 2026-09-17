@@ -1,35 +1,32 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Cormorant_Garamond, Italiana } from "next/font/google";
+import { Cormorant_Garamond, Jost, Italiana } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { Footer } from "@/components/layout/Footer";
-import { AskAureChat } from "@/components/concierge/AskAureChat";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
 import { PageTransition } from "@/components/ui/motion";
 import { LenisProvider } from "@/lib/lenis";
+import { ARTIST_NAME, SITE_NAME } from "@/lib/site";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-// Decorative display fonts — scoped to a single phrase on the Gallery Intro's
-// idle screen (see GalleryIntro.tsx) via CSS variable only. The site's body
-// copy stays on Playfair Display + Inter everywhere else.
+// Display serif for headings and the artist's name — a fine, high-contrast
+// Garamond that reads as a gallery catalogue rather than a web page.
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["italic"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
+// Body and label sans — geometric, echoing the circles and triangles in the
+// paintings, and airy at wide letter-spacing for small uppercase labels.
+const jost = Jost({
+  variable: "--font-jost",
+  subsets: ["latin"],
+});
+
+// Only used by the (unused) GalleryIntro component.
 const italiana = Italiana({
   variable: "--font-italiana",
   subsets: ["latin"],
@@ -37,16 +34,15 @@ const italiana = Italiana({
 });
 
 export const metadata: Metadata = {
-  title: "Auréline — Original Art from Independent & Gallery-Represented Artists",
-  description:
-    "A curated marketplace connecting discerning collectors with original paintings, sculpture, and photography, backed by authentication and white-glove delivery.",
+  title: `${SITE_NAME} — Paintings by ${ARTIST_NAME}`,
+  description: `Original paintings by ${ARTIST_NAME}: minimal geometric fields of circle, triangle, colour and open space.`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${cormorant.variable} ${italiana.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${jost.variable} ${italiana.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-espresso">
         <a
@@ -58,12 +54,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LenisProvider>
           <AuthProvider>
             <CartProvider>
+              <ScrollProgress />
               <Header />
-              <main id="main-content" className="flex-1">
+              <main id="main-content" className="flex-1 pb-32 has-[.ends-dark]:pb-0">
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer />
-              <AskAureChat />
             </CartProvider>
           </AuthProvider>
         </LenisProvider>

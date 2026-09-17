@@ -1,59 +1,51 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { TrustStrip } from "./TrustStrip";
-import { HairlineDivider } from "@/components/ui/HairlineDivider";
+import { ARTIST_NAME, CONTACT_EMAIL, NAV_LINKS as navLinks, SITE_NAME, mailtoEnquiry } from "@/lib/site";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} className="group relative inline-block hover:text-copper transition-colors duration-300 ease-premium">
+    <Link
+      href={href}
+      className="group relative inline-block hover:text-copper-highlight transition-colors duration-500 ease-premium"
+    >
       {children}
-      <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-copper transition-all duration-300 ease-premium group-hover:w-full" />
+      <span className="copper-rule-bright absolute left-0 -bottom-0.5 w-0 transition-all duration-500 ease-premium group-hover:w-full" />
     </Link>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-cream-deep">
-      <TrustStrip />
-      <div className="mx-auto max-w-7xl px-6 py-20 grid grid-cols-2 sm:grid-cols-4 gap-12">
-        <div className="col-span-2 sm:col-span-1">
-          <p className="font-serif text-2xl text-espresso mb-3">Auréline</p>
-          <span className="block h-px w-10 bg-copper mb-4" aria-hidden="true" />
-          <p className="text-sm text-espresso-soft leading-relaxed">
-            A curated marketplace for original paintings, sculpture, and photography from independent
-            and gallery-represented artists worldwide.
-          </p>
-        </div>
+    <footer className="bg-night text-cream">
+      <div className="copper-rule-bright" aria-hidden="true" />
+      <div className="mx-auto max-w-6xl px-6 py-20 flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-xs font-sans uppercase tracking-wider text-espresso mb-4">Discover</p>
-          <ul className="space-y-3 text-sm text-espresso-soft">
-            <li><FooterLink href="/discover">Browse All</FooterLink></li>
-            <li><FooterLink href="/discover#collections">Collections</FooterLink></li>
-            <li><FooterLink href="/dashboard">My Collection</FooterLink></li>
-          </ul>
+          <p className="font-serif text-4xl font-light tracking-[0.04em] text-copper-metal-bright">{SITE_NAME}</p>
+          <p className="mt-4 text-sm text-cream/60">Original paintings by {ARTIST_NAME}.</p>
         </div>
-        <div>
-          <p className="text-xs font-sans uppercase tracking-wider text-espresso mb-4">Assurance</p>
-          <ul className="space-y-3 text-sm text-espresso-soft">
-            <li>Insured Worldwide Shipping</li>
-            <li>14-Day Returns</li>
-            <li>Third-Party Authentication</li>
-            <li>Secure Escrow Payment</li>
+
+        <nav aria-label="Footer">
+          <ul className="flex flex-col gap-4 text-[12px] font-sans uppercase tracking-[0.24em] text-cream/70 sm:items-end">
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <FooterLink href={link.href}>{link.label}</FooterLink>
+              </li>
+            ))}
+            <li>
+              <a
+                href={mailtoEnquiry(`Enquiry — ${ARTIST_NAME}`)}
+                className="normal-case tracking-normal text-sm hover:text-copper-highlight transition-colors duration-500 ease-premium"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </li>
           </ul>
-        </div>
-        <div>
-          <p className="text-xs font-sans uppercase tracking-wider text-espresso mb-4">Advisory</p>
-          <ul className="space-y-3 text-sm text-espresso-soft">
-            <li>Ask Auré, our AI art advisor, is available in the corner of every page.</li>
-            <li>Dedicated collector advisors available by request.</li>
-          </ul>
-        </div>
+        </nav>
       </div>
-      <HairlineDivider />
-      <div className="mx-auto max-w-7xl px-6 py-6 text-xs text-espresso-soft flex flex-col sm:flex-row justify-between gap-2">
-        <p>&copy; {new Date().getFullYear()} Auréline. All rights reserved.</p>
-        <p>A prototype boutique art marketplace.</p>
+      <div className="mx-auto max-w-6xl px-6 pb-10 text-[11px] tracking-[0.12em] text-cream/40">
+        <p>
+          &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

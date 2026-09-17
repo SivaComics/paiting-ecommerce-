@@ -1,19 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  --color-cream: #faf6f0;
-  --color-cream-deep: #f5ede3;
-  --color-blush: #f2e2d8;
-  --color-copper: #b87333;
-  --color-copper-light: #c9975c;
-  --color-copper-deep: #93602d;
-  --color-espresso: #2a2420;
-  --color-espresso-soft: #4a4038;
-  --color-hairline: #e4d8c8;
+  /* ── Copper finish ─────────────────────────────────────────────────────
+     The only place copper colours are defined. Every copper on the site —
+     Tailwind's copper utilities and the brushed-copper classes below —
+     resolves to these five values. */
+  --copper-highlight: #E8A56E;
+  --copper-light: #D48A55;
+  --copper-mid: #B4693A;
+  --copper-deep: #7A3C1C;
+  --copper-shadow: #46200E;
+
+  /* Brushed copper: soft vertical light bands between dark edges, with a
+     little uneven banding so it reads as metal rather than flat orange.
+     For frames and anything 3px or thicker. */
+  --copper-brushed: linear-gradient(
+    90deg,
+    var(--copper-deep) 0%,
+    var(--copper-mid) 6%,
+    var(--copper-highlight) 16%,
+    var(--copper-light) 24%,
+    var(--copper-mid) 34%,
+    var(--copper-light) 44%,
+    var(--copper-highlight) 52%,
+    var(--copper-mid) 63%,
+    var(--copper-light) 74%,
+    var(--copper-highlight) 82%,
+    var(--copper-mid) 91%,
+    var(--copper-deep) 100%
+  );
+
+  /* The same banding for 1–2px lines. On the cream ground the highlight
+     stop drops below 2:1 contrast and the line visually breaks up, so the
+     brightest stop here is --copper-light and the line leans mid/deep. */
+  --copper-brushed-line: linear-gradient(
+    90deg,
+    var(--copper-deep) 0%,
+    var(--copper-mid) 18%,
+    var(--copper-light) 36%,
+    var(--copper-mid) 54%,
+    var(--copper-light) 72%,
+    var(--copper-mid) 86%,
+    var(--copper-deep) 100%
+  );
+
+  /* Fine vertical grain laid over frames, like the brushing in the texture. */
+  --copper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9 0.012' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.3 0 0 0 0 0.15 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+
+  /* ── Ground palette ────────────────────────────────────────────────────
+     Warm half-whites that sit with the copper rather than against it,
+     plus one deep warm charcoal for the closing sections. */
+  --color-cream: #f6f0e6;      /* ivory — the main ground */
+  --color-cream-deep: #eee4d5; /* sand — alternating sections */
+  --color-blush: #e7d7c2;      /* bisque — soft washes */
+  --color-night: #1d1815;      /* warm charcoal — dark sections */
+  --color-night-soft: #2b241f;
+  --color-copper: var(--copper-mid);
+  --color-copper-light: var(--copper-light);
+  --color-copper-deep: var(--copper-deep);
+  --color-espresso: #2a221d;
+  --color-espresso-soft: #54473d;
+  --color-hairline: #e0d1bc;
   --color-ink: #0a0a0a;
 
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-jost);
 
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -22,6 +73,8 @@
   --color-cream: var(--color-cream);
   --color-cream-deep: var(--color-cream-deep);
   --color-blush: var(--color-blush);
+  --color-night: var(--color-night);
+  --color-night-soft: var(--color-night-soft);
   --color-copper: var(--color-copper);
   --color-copper-light: var(--color-copper-light);
   --color-copper-deep: var(--color-copper-deep);
@@ -35,21 +88,267 @@
 }
 
 body {
+  position: relative;
   background: var(--color-cream);
   color: var(--color-espresso);
   font-family: var(--font-sans);
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
+/* A barely-there copper warmth in the top corner and a bisque wash at the
+   foot, over the ivory ground, so the page reads as warm paper, not white.
+   Kept on a fixed, viewport-sized layer: painted across the full 10,000px
+   page body, Chrome rasterised these gradients in tiles and left faint
+   horizontal seams in the background. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(90% 60% at 100% 0%, color-mix(in srgb, var(--copper-light) 9%, transparent) 0%, transparent 60%),
+    radial-gradient(80% 50% at 0% 100%, color-mix(in srgb, var(--color-blush) 55%, transparent) 0%, transparent 70%);
+}
+
+/* Fine paper grain over the whole page. Fixed and non-interactive. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  /* Its own compositor layer, so scrolling never repaints the grain (which
+     otherwise shows up as judder and faint banded patches mid-scroll). */
+  transform: translateZ(0);
+  will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0 0.09 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 h1, h2, h3, h4 {
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
 }
 
 ::selection {
   background: var(--color-copper-light);
   color: var(--color-cream);
+}
+
+/* Copper finish — thin, never a fill */
+
+/* 1px section divider. */
+@utility copper-rule {
+  height: 1px;
+  border: 0;
+  background: var(--copper-brushed-line);
+}
+
+/* 1px brushed-copper outline for cards, panels and buttons. border-image
+   ignores border-radius, which suits the site's square corners. Registered
+   with @utility so it takes variants, e.g. hover:copper-outline. */
+@utility copper-outline {
+  border: 1px solid var(--copper-mid);
+  border-image: var(--copper-brushed-line) 1;
+}
+
+@utility copper-outline-2 {
+  border: 2px solid var(--copper-mid);
+  border-image: var(--copper-brushed-line) 1;
+}
+
+/* Brighter 1px rule for dark sections, where the deep stops would vanish. */
+@utility copper-rule-bright {
+  height: 1px;
+  border: 0;
+  background: var(--copper-brushed);
+}
+
+/* Brushed-copper lettering for the artist's name and display accents. Leans
+   on the mid and deep tones so it stays legible on the ivory ground. */
+.text-copper-metal {
+  background-image: linear-gradient(
+    100deg,
+    var(--copper-deep) 0%,
+    var(--copper-mid) 22%,
+    var(--copper-light) 42%,
+    var(--copper-mid) 58%,
+    var(--copper-light) 76%,
+    var(--copper-deep) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The same lettering for dark grounds, where the highlight band can shine. */
+.text-copper-metal-bright {
+  background-image: var(--copper-brushed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Copper light — the opening's ambient backdrop. A warm glow and soft
+   vertical light bands, like the client's brushed-copper texture, faded out
+   toward the text and drifting very slowly. Transform-only animation, so it
+   stays on the compositor and never janks scrolling. */
+.copper-light {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(62%, 900px);
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 24%, #000 58%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 24%, #000 58%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.copper-light__glow {
+  position: absolute;
+  inset: -10% -10% 10% 0;
+  background:
+    radial-gradient(55% 60% at 58% 38%, color-mix(in srgb, var(--copper-highlight) 24%, transparent) 0%, transparent 70%),
+    radial-gradient(40% 50% at 30% 70%, color-mix(in srgb, var(--copper-light) 10%, transparent) 0%, transparent 70%);
+  animation: copper-breathe 16s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.copper-light__band {
+  position: absolute;
+  top: -15%;
+  height: 130%;
+  filter: blur(56px);
+  transform: rotate(9deg);
+  will-change: transform;
+}
+
+.copper-light__band--a {
+  left: 22%;
+  width: 16%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--copper-highlight) 38%, transparent), transparent);
+  animation: copper-drift-a 22s ease-in-out infinite alternate;
+}
+
+.copper-light__band--b {
+  left: 52%;
+  width: 10%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--copper-light) 28%, transparent), transparent);
+  animation: copper-drift-b 28s ease-in-out infinite alternate;
+}
+
+.copper-light__band--shade {
+  left: 66%;
+  width: 14%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--copper-deep) 9%, transparent), transparent);
+  animation: copper-drift-b 34s ease-in-out infinite alternate-reverse;
+}
+
+.copper-light__band--c {
+  left: 80%;
+  width: 12%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--copper-mid) 20%, transparent), transparent);
+  animation: copper-drift-a 26s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes copper-breathe {
+  from { transform: scale(1); opacity: 0.85; }
+  to { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes copper-drift-a {
+  from { transform: translateX(-6%) rotate(9deg); }
+  to { transform: translateX(14%) rotate(9deg); }
+}
+
+@keyframes copper-drift-b {
+  from { transform: translateX(10%) rotate(9deg); }
+  to { transform: translateX(-12%) rotate(9deg); }
+}
+
+@media (max-width: 639px) {
+  .copper-light {
+    width: 100%;
+    opacity: 0.7;
+  }
+}
+
+/* Scroll cue: a fine copper line with a point of light travelling down it. */
+.scroll-cue {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 64px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--copper-mid) 22%, transparent);
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, var(--copper-mid));
+  animation: scroll-cue 2.8s var(--ease-premium) infinite;
+}
+
+@keyframes scroll-cue {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(260%); }
+}
+
+/* Deep warm-charcoal band. */
+.section-night {
+  background:
+    radial-gradient(70% 90% at 50% 0%, color-mix(in srgb, var(--copper-mid) 12%, transparent) 0%, transparent 65%),
+    var(--color-night);
+  color: var(--color-cream);
+}
+
+/* 3–4px frame around a painting. The gradient + grain only show as a ring,
+   because the image covers the centre. The inset shadows give the metal a
+   lit top edge and a darker bottom edge; the inner shadow on the image is
+   the frame's dark inside lip. */
+.copper-frame {
+  position: relative;
+  padding: 3px;
+  background-image: var(--copper-grain), var(--copper-brushed);
+  background-size: 160px 160px, 100% 100%;
+  background-blend-mode: soft-light, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 222, 190, 0.55),
+    inset 0 -1px 0 rgba(70, 32, 14, 0.55),
+    0 1px 2px rgba(70, 32, 14, 0.18),
+    0 24px 48px -28px rgba(42, 36, 32, 0.35);
+}
+
+.copper-frame > img,
+.copper-frame > * {
+  box-shadow: 0 0 0 1px var(--copper-shadow);
+}
+
+@media (min-width: 640px) {
+  .copper-frame {
+    padding: 4px;
+  }
+}
+
+/* Keyboard focus in copper, site-wide. In the base layer so a component's
+   own focus utilities (e.g. an input's focus:outline-none) still win. */
+@layer base {
+  :focus-visible {
+    outline: 1px solid var(--copper-mid);
+    outline-offset: 3px;
+  }
 }
 
 /* Gradients */
@@ -74,16 +373,16 @@ h1, h2, h3, h4 {
 
 .bg-gradient-aurora {
   background:
-    radial-gradient(60% 60% at 15% 10%, rgba(201, 151, 92, 0.35) 0%, transparent 60%),
-    radial-gradient(50% 50% at 85% 25%, rgba(184, 115, 51, 0.22) 0%, transparent 60%),
+    radial-gradient(60% 60% at 15% 10%, color-mix(in srgb, var(--copper-light) 35%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 50% at 85% 25%, color-mix(in srgb, var(--copper-mid) 22%, transparent) 0%, transparent 60%),
     radial-gradient(70% 70% at 50% 100%, rgba(242, 226, 216, 0.9) 0%, transparent 65%),
     linear-gradient(160deg, var(--color-cream) 0%, var(--color-cream-deep) 100%);
 }
 
 .bg-gradient-espresso-aurora {
   background:
-    radial-gradient(55% 55% at 20% 15%, rgba(201, 151, 92, 0.28) 0%, transparent 60%),
-    radial-gradient(60% 60% at 85% 85%, rgba(184, 115, 51, 0.2) 0%, transparent 65%),
+    radial-gradient(55% 55% at 20% 15%, color-mix(in srgb, var(--copper-light) 28%, transparent) 0%, transparent 60%),
+    radial-gradient(60% 60% at 85% 85%, color-mix(in srgb, var(--copper-mid) 20%, transparent) 0%, transparent 65%),
     linear-gradient(160deg, #2a2420 0%, #1d1815 100%);
 }
 
@@ -103,11 +402,11 @@ h1, h2, h3, h4 {
 }
 
 .shadow-copper-glow {
-  box-shadow: 0 10px 30px -6px rgba(184, 115, 51, 0.45), 0 2px 10px -2px rgba(184, 115, 51, 0.3);
+  box-shadow: 0 10px 30px -6px color-mix(in srgb, var(--copper-mid) 45%, transparent), 0 2px 10px -2px color-mix(in srgb, var(--copper-mid) 30%, transparent);
 }
 
 .bg-gradient-copper-veil {
-  background: linear-gradient(165deg, rgba(184, 115, 51, 0.28) 0%, rgba(184, 115, 51, 0) 40%);
+  background: linear-gradient(165deg, color-mix(in srgb, var(--copper-mid) 28%, transparent) 0%, color-mix(in srgb, var(--copper-mid) 0%, transparent) 40%);
 }
 
 .bg-texture-dots {

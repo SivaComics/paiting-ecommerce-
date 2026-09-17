@@ -82,14 +82,17 @@ function DiscoverExplorerInner({ searchParams }: { searchParams: URLSearchParams
     return artworks.filter((a) => {
       if (filters.collectionId && !a.collectionIds.includes(filters.collectionId)) return false;
       if (filters.mediums.size && !filters.mediums.has(a.medium)) return false;
-      if (filters.sizes.size && !filters.sizes.has(getSizeCategory(a))) return false;
+      if (filters.sizes.size) {
+        const size = getSizeCategory(a);
+        if (!size || !filters.sizes.has(size)) return false;
+      }
       if (filters.regions.size && !filters.regions.has(a.region)) return false;
       if (filters.colors.size && !a.colorPalette.some((c) => filters.colors.has(c))) return false;
       if (filters.onlyAvailable && a.availability !== "available") return false;
       if (filters.newArrivalsOnly && !isNewArrival(a)) return false;
       if (filters.priceBandIndex !== null) {
         const band = priceBands[filters.priceBandIndex];
-        if (a.price < band.min || a.price >= band.max) return false;
+        if (a.price === null || a.price < band.min || a.price >= band.max) return false;
       }
       if (query) {
         const artist = artists.find((ar) => ar.id === a.artistId);

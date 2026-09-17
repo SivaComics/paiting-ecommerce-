@@ -1,5 +1,6 @@
 import { artists, artworks, collections } from "@/lib/data";
-import { formatPrice } from "@/lib/format";
+import { formatArtworkPrice, formatPrice } from "@/lib/format";
+import { SITE_NAME } from "@/lib/site";
 
 function buildCatalogSummary(): string {
   const artistLines = artists.map(
@@ -11,21 +12,22 @@ function buildCatalogSummary(): string {
   );
 
   const availableWorks = artworks.filter((a) => a.availability === "available");
-  const prices = availableWorks.map((a) => a.price);
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
+  const prices = availableWorks.map((a) => a.price).filter((p): p is number => p !== null);
+  const priceRange = prices.length
+    ? `priced roughly from ${formatPrice(Math.min(...prices))} to ${formatPrice(Math.max(...prices))}`
+    : "with prices on request";
 
   const artworkLines = artworks.map((a) => {
     const artist = artists.find((ar) => ar.id === a.artistId);
-    return `- "${a.title}" (${a.year}) by ${artist?.name ?? "Unknown"} — ${a.medium}, ${formatPrice(
-      a.price
+    return `- "${a.title}" (${a.reference}, ${a.year ?? "year TBC"}) by ${artist?.name ?? "Unknown"} — ${a.medium}, ${formatArtworkPrice(
+      a
     )}, ${a.availability}, slug: ${a.slug}`;
   });
 
   return [
-    `Auréline's current inventory spans ${artworks.length} works from ${artists.length} artists, priced roughly from ${formatPrice(
-      min
-    )} to ${formatPrice(max)}.`,
+    `${SITE_NAME}'s current inventory spans ${artworks.length} works from ${artists.length} artist${
+      artists.length === 1 ? "" : "s"
+    }, ${priceRange}.`,
     "",
     "ARTISTS:",
     ...artistLines,

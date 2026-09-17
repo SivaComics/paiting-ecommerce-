@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Artwork } from "@/lib/data/types";
 import { getArtistById } from "@/lib/data/artists";
-import { formatPrice } from "@/lib/format";
+import { formatArtworkPrice } from "@/lib/format";
 import { ZoomOnHover } from "@/components/ui/motion";
 import { CornerFrame } from "@/components/ui/CornerFrame";
 
 export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; priority?: boolean }) {
   const artist = getArtistById(artwork.artistId);
-  const aspect = artwork.dimensions.height / artwork.dimensions.width;
+  const aspect = 1 / artwork.imageAspect;
 
   return (
     <Link href={`/artwork/${artwork.slug}`} className="group block transition-transform duration-500 ease-premium hover:-translate-y-1">
@@ -16,7 +16,7 @@ export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; p
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={artwork.images[0]}
-            alt={`${artwork.title}, ${artwork.year}, ${artwork.medium.toLowerCase()} by ${artist?.name ?? "unknown artist"}`}
+            alt={`${artwork.reference} by ${artist?.name ?? "unknown artist"}`}
             loading={priority ? "eager" : "lazy"}
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -38,7 +38,7 @@ export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; p
                 "Sold"
               ) : (
                 <>
-                  {formatPrice(artwork.price)}
+                  {formatArtworkPrice(artwork)}
                   {artwork.availability === "on-hold" && <span className="text-cream/60"> · On Hold</span>}
                 </>
               )}

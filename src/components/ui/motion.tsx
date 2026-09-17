@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import { AnimatePresence, motion, PresenceContext, useMotionValue, useSpring } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { PointerEvent, ReactNode, useEffect, useRef, useState } from "react";
 
@@ -131,7 +131,12 @@ export function PageTransition({ children }: { children: ReactNode }) {
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        {children}
+        {/* initial={false} above is meant only for this page wrapper (no fade on
+            first load), but AnimatePresence passes it down to every motion
+            component inside, which silently disabled their `initial` states —
+            reveal-on-scroll fades, drawn lines, image wipes. Resetting the
+            presence context here keeps it scoped to the wrapper. */}
+        <PresenceContext.Provider value={null}>{children}</PresenceContext.Provider>
       </motion.div>
     </AnimatePresence>
   );

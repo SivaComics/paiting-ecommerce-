@@ -3,13 +3,15 @@ import { Artwork } from "@/lib/data/types";
 
 export type SizeCategory = "Small" | "Medium" | "Large";
 
-const newArrivalYearThreshold = Math.max(...artworks.map((a) => a.year)) - 1;
+const knownYears = artworks.map((a) => a.year).filter((y): y is number => y !== null);
+const newArrivalYearThreshold = knownYears.length ? Math.max(...knownYears) - 1 : Infinity;
 
 export function isNewArrival(artwork: Artwork): boolean {
-  return artwork.year >= newArrivalYearThreshold;
+  return artwork.year !== null && artwork.year >= newArrivalYearThreshold;
 }
 
-export function getSizeCategory(artwork: Artwork): SizeCategory {
+export function getSizeCategory(artwork: Artwork): SizeCategory | null {
+  if (!artwork.dimensions) return null;
   const longest = Math.max(artwork.dimensions.height, artwork.dimensions.width);
   if (longest < 24) return "Small";
   if (longest <= 48) return "Medium";

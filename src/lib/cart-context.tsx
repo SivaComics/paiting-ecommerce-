@@ -42,14 +42,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items]);
 
+  // Every work is an original, so adding one that's already in the bag is a
+  // no-op rather than a second copy.
   const addItem = useCallback((artworkId: string) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.artworkId === artworkId);
-      if (existing) {
-        return prev.map((i) => (i.artworkId === artworkId ? { ...i, quantity: i.quantity + 1 } : i));
-      }
-      return [...prev, { artworkId, quantity: 1 }];
-    });
+    setItems((prev) => (prev.some((i) => i.artworkId === artworkId) ? prev : [...prev, { artworkId, quantity: 1 }]));
   }, []);
 
   const removeItem = useCallback((artworkId: string) => {

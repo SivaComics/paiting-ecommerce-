@@ -1,12 +1,16 @@
 import { clsx } from "clsx";
 
+/**
+ * Section divider in brushed copper (see .copper-rule in globals.css).
+ * `accent` draws a short centred rule instead of a full-width line.
+ */
 export function HairlineDivider({ className, accent = false }: { className?: string; accent?: boolean }) {
   if (accent) {
     return (
-      <div className={clsx("relative border-t border-hairline", className)} aria-hidden="true">
-        <span className="absolute left-1/2 top-0 h-px w-12 -translate-x-1/2 -translate-y-px bg-copper" />
+      <div className={clsx("flex justify-center", className)} aria-hidden="true">
+        <span className="copper-rule block w-24" />
       </div>
     );
   }
-  return <hr className={clsx("border-t border-hairline", className)} />;
+  return <hr className={clsx("copper-rule", className)} />;
 }

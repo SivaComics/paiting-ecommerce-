@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Artwork } from "@/lib/data/types";
 import { useLenis } from "@/lib/lenis";
 import { RevealOnScroll, useMountedReducedMotion } from "@/components/ui/motion";
+import { SITE_NAME } from "@/lib/site";
 
 const MOBILE_QUERY = "(max-width: 767px)";
 
@@ -390,7 +391,7 @@ function AnimatedGalleryIntro({ artwork, artistName }: { artwork: Artwork; artis
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={artwork.images[0]}
-              alt={`${artwork.title} by ${artistName ?? "an Auréline artist"}`}
+              alt={`${artwork.title} by ${artistName ?? `a ${SITE_NAME} artist`}`}
               className="h-full w-full object-cover"
             />
           </div>
@@ -452,7 +453,7 @@ function StaticGalleryIntro({ artwork, artistName }: { artwork: Artwork; artistN
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={artwork.images[0]}
-            alt={`${artwork.title} by ${artistName ?? "an Auréline artist"}`}
+            alt={`${artwork.title} by ${artistName ?? `a ${SITE_NAME} artist`}`}
             className="h-full w-full object-cover"
           />
         </div>
