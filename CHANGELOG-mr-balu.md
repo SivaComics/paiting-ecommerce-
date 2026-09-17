@@ -161,3 +161,20 @@ These changes follow the manager's review: less about the artist on the page, mo
   - The component is `src/components/artist-panel/ArtistPanel.tsx`.
 - **The Work shortened.** It keeps the diagram panel, the lead paragraph, one supporting paragraph and the "event" quote. The HS definition quote and two paragraphs were removed.
 
+---
+
+## Update: an opening that explains itself
+
+- **Before scrolling.**
+  - Painting No. 06 shows faintly inside the drawn circle from the first moment.
+  - The shapes carry small copper labels: Square, Circle, Point, Triangle.
+  - A line under the heading says what will happen: "Square, circle, triangle, point. Scroll to see them become a painting."
+- **While scrolling, the words follow the drawing.** Each step shows the commentary's own sentence for that element:
+  1. The square turns away: "The square contains."
+  2. The triangle rises: "The small triangle introduces direction."
+  3. The painting fills the circle: "The circle retains."
+  4. The painting opens out: "The empty field connects."
+  5. The whole painting is framed: "Painting No. 06 · Few elements. One painting. · View the paintings"
+- **Step icons.** A row of five small shape icons lights up in copper to show the current step.
+- **Fit.** The opening now sits under the header, so the first screen is centred and fits on phones and desktops.
+

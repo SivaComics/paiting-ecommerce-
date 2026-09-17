@@ -24,8 +24,11 @@ The opening is now about the art. The commentary's diagram (square, circle, smal
 | On the site | Label | Source |
 |---|---|---|
 | "Reality expressed through remarkably few elements." | Close to the PDF | Essay: "Here, reality is expressed through remarkably few elements." |
-| "The circle retains." | **Exact quote** | Commentary, Energy section |
+| "The square contains." · "The small triangle introduces direction." · "The circle retains." · "The empty field connects." (one per scroll step, in sync with the drawing) | **Exact quote** | Commentary, Energy section |
 | "Harmonious Science" (caption) | Written for the site | — |
+| "Square, circle, triangle, point. Scroll to see them become a painting." | Written for the site | Tells the visitor what the drawing is and what will happen |
+| Diagram labels: "Square", "Circle", "Point", "Triangle"; step names "Square", "Triangle", "Circle", "Space" | Written for the site | — |
+| "Few elements. One painting." | Written for the site | — |
 | "Original Paintings", "Paintings by K. Balasubramanian", "Painting No. 06", "View the paintings", "Scroll" | Written for the site | — |
 
 ## About the artist (panel opened from "About" in the menu)
