@@ -178,3 +178,8 @@ These changes follow the manager's review: less about the artist on the page, mo
 - **Step icons.** A row of five small shape icons lights up in copper to show the current step.
 - **Fit.** The opening now sits under the header, so the first screen is centred and fits on phones and desktops.
 
+
+## Update: "About the artist" card in the opening
+
+- The plain "Paintings by K. Balasubramanian" link in the opening is now a copper-outlined card with his round portrait, the label "About the artist", his name and an arrow, so it clearly reads as something to click.
+- A soft copper ring breathes around the portrait to draw the eye; the card lifts slightly on hover. Clicking it opens the About the artist panel.

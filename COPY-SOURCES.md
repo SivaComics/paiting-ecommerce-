@@ -29,7 +29,7 @@ The opening is now about the art. The commentary's diagram (square, circle, smal
 | "Square, circle, triangle, point. Scroll to see them become a painting." | Written for the site | Tells the visitor what the drawing is and what will happen |
 | Diagram labels: "Square", "Circle", "Point", "Triangle"; step names "Square", "Triangle", "Circle", "Space" | Written for the site | — |
 | "Few elements. One painting." | Written for the site | — |
-| "Original Paintings", "Paintings by K. Balasubramanian", "Painting No. 06", "View the paintings", "Scroll" | Written for the site | — |
+| "Original Paintings", "About the artist", "Painting No. 06", "View the paintings", "Scroll" | Written for the site | — |
 
 ## About the artist (panel opened from "About" in the menu)
 

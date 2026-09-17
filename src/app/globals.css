@@ -280,6 +280,12 @@ h1, h2, h3, h4 {
   }
 }
 
+/* The breathing copper ring on the opening's "About the artist" card. */
+@keyframes artist-chip-ring {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.12); opacity: 0; }
+}
+
 /* Scroll cue: a fine copper line with a point of light travelling down it. */
 .scroll-cue {
   position: relative;

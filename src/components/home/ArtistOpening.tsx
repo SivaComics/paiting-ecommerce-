@@ -15,7 +15,7 @@ import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useMountedReducedMotion } from "@/components/ui/motion";
 import { ARTIST_NAME } from "@/lib/site";
-import { getPaintingImages } from "@/lib/data/painting-images";
+import { artistPortraitImage, getPaintingImages } from "@/lib/data/painting-images";
 import { AboutArtistButton } from "@/components/artist-panel/ArtistPanel";
 
 /**
@@ -38,8 +38,8 @@ import { AboutArtistButton } from "@/components/artist-panel/ArtistPanel";
  * - "Reality expressed through remarkably few elements." — "Two Approaches of
  *   Art – HS", The Path Through Simplicity (close paraphrase)
  * - The four element sentences — HS commentary, Energy section, exact
- * - Labels, the scroll hint, "Few elements. One painting." and
- *   "Painting No. 06" — written for the site
+ * - Labels, the scroll hint, "Few elements. One painting.", "About the artist"
+ *   and "Painting No. 06" — written for the site
  */
 
 const FEATURED_SLUG = "painting-06";
@@ -124,7 +124,7 @@ function AnimatedOpening({ src, aspect }: { src: string; aspect: number }) {
         <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-5 px-6 pb-6 pt-[calc(81px+1rem)] sm:pt-[calc(97px+1rem)] md:grid-cols-12 md:gap-10">
           {/* Words, in step with the drawing */}
           <div className="relative order-1 md:col-span-5">
-            <div className="relative min-h-[12.5rem] text-center md:min-h-[22rem] md:text-left">
+            <div className="relative min-h-[15rem] text-center md:min-h-[25rem] md:text-left">
               <StepText p={p} step={STEPS[0]} first>
                 <p className="text-[11px] font-sans uppercase tracking-[0.3em] text-copper-deep">Original Paintings</p>
                 <h1
@@ -136,13 +136,7 @@ function AnimatedOpening({ src, aspect }: { src: string; aspect: number }) {
                 <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-espresso-soft md:mx-0 md:mt-6 md:max-w-sm md:text-[15px]">
                   Square, circle, triangle, point. Scroll to see them become a painting.
                 </p>
-                <AboutArtistButton className="group mx-auto mt-4 inline-flex items-center gap-3 text-[11px] font-sans uppercase tracking-[0.26em] text-espresso-soft hover:text-copper-deep transition-colors duration-500 ease-premium md:mx-0 md:mt-8">
-                  <span
-                    className="copper-rule block w-8 transition-all duration-500 ease-premium group-hover:w-12"
-                    aria-hidden="true"
-                  />
-                  Paintings by {ARTIST_NAME}
-                </AboutArtistButton>
+                <ArtistChip className="mx-auto mt-5 md:mx-0 md:mt-8" />
               </StepText>
 
               <StepText p={p} step={STEPS[1]}>
@@ -503,9 +497,7 @@ function StaticOpening({ src, aspect }: { src: string; aspect: number }) {
             <li>The circle retains.</li>
             <li>The empty field connects.</li>
           </ul>
-          <AboutArtistButton className="mt-8 text-[11px] font-sans uppercase tracking-[0.26em] text-espresso-soft hover:text-copper-deep">
-            Paintings by {ARTIST_NAME}
-          </AboutArtistButton>
+          <ArtistChip className="mt-8" />
         </div>
         <div className="flex justify-center md:col-span-7">
           <div className="copper-frame" style={{ width: "min(74vw, 420px)" }}>
@@ -520,6 +512,51 @@ function StaticOpening({ src, aspect }: { src: string; aspect: number }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The way into "About the artist" from the opening: a copper-outlined card
+ * with his portrait, so it reads unmistakably as something to click.
+ */
+function ArtistChip({ className }: { className?: string }) {
+  return (
+    <AboutArtistButton
+      className={clsx(
+        "group copper-outline relative inline-flex items-center gap-4 self-start bg-cream/70 py-2.5 pl-2.5 pr-5 text-left backdrop-blur-sm",
+        "shadow-[0_10px_30px_-18px_rgba(122,60,28,0.45)] transition-[background-color,box-shadow,transform] duration-500 ease-premium",
+        "hover:-translate-y-0.5 hover:bg-cream hover:shadow-[0_16px_36px_-18px_rgba(122,60,28,0.6)]",
+        className
+      )}
+    >
+      <span className="relative block h-11 w-11 flex-shrink-0">
+        {/* Soft copper ring that breathes, to draw the eye without shouting. */}
+        <span
+          aria-hidden="true"
+          className="absolute -inset-1 rounded-full opacity-60 motion-safe:animate-[artist-chip-ring_2.8s_ease-in-out_infinite]"
+          style={{ boxShadow: "0 0 0 1px var(--copper-light)" }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={artistPortraitImage.src}
+          alt=""
+          className="h-full w-full rounded-full object-cover object-[45%_40%]"
+          style={{ boxShadow: "0 0 0 1.5px var(--copper-mid)" }}
+        />
+      </span>
+      <span className="flex flex-col">
+        <span className="text-[10px] font-sans uppercase tracking-[0.26em] text-copper-deep">About the artist</span>
+        <span className="mt-0.5 font-serif text-xl leading-tight text-espresso transition-colors duration-500 ease-premium group-hover:text-copper-deep">
+          {ARTIST_NAME}
+        </span>
+      </span>
+      <ArrowRight
+        size={16}
+        strokeWidth={1.5}
+        aria-hidden="true"
+        className="ml-1 text-copper-deep transition-transform duration-500 ease-premium group-hover:translate-x-1"
+      />
+    </AboutArtistButton>
   );
 }
 
