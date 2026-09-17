@@ -8,6 +8,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
 import { PageTransition } from "@/components/ui/motion";
 import { LenisProvider } from "@/lib/lenis";
+import { ArtistPanelProvider } from "@/components/artist-panel/ArtistPanel";
 import { ARTIST_NAME, SITE_NAME } from "@/lib/site";
 
 // Display serif for headings and the artist's name — a fine, high-contrast
@@ -52,16 +53,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <LenisProvider>
-          <AuthProvider>
-            <CartProvider>
-              <ScrollProgress />
-              <Header />
-              <main id="main-content" className="flex-1 pb-32 has-[.ends-dark]:pb-0">
-                <PageTransition>{children}</PageTransition>
-              </main>
-              <Footer />
-            </CartProvider>
-          </AuthProvider>
+          <ArtistPanelProvider>
+            <AuthProvider>
+              <CartProvider>
+                <ScrollProgress />
+                <Header />
+                <main id="main-content" className="flex-1 pb-32 has-[.ends-dark]:pb-0">
+                  <PageTransition>{children}</PageTransition>
+                </main>
+                <Footer />
+              </CartProvider>
+            </AuthProvider>
+          </ArtistPanelProvider>
         </LenisProvider>
       </body>
     </html>

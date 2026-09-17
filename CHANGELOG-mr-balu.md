@@ -143,3 +143,21 @@ Covers the Nine Colours, Yin-Yang, Pancha-bhutha, green, blue, and red paintings
 - **Where it lives.** The data is `ARTIST_TIMELINE` in `src/lib/data/artist-words.ts`.
 - **Layout.** The timeline is sized so both columns end at the same point on desktop.
 
+---
+
+## Update: art-first opening and "About" panel
+
+These changes follow the manager's review: less about the artist on the page, more about the paintings.
+
+- **Opening redesigned.**
+  - The portrait, biography line and artist quote are gone.
+  - The commentary's diagram (square, circle, small triangle, centre point) draws itself in copper.
+  - As you scroll, the square turns away, the triangle rises, and painting No. 06 appears inside the drawn circle, which lines up with the painting's own ring. It then opens out into the full painting in its copper frame, with "The circle retains."
+  - The section is `src/components/home/ArtistOpening.tsx`.
+- **About the artist, on request.**
+  - The biography and the "A life in painting" timeline are no longer on the page.
+  - They open in a slide-in panel from "About" in the header, "About the artist" in the footer, or "Paintings by K. Balasubramanian" in the opening.
+  - The panel closes with Escape, the close button, or a click outside it.
+  - The component is `src/components/artist-panel/ArtistPanel.tsx`.
+- **The Work shortened.** It keeps the diagram panel, the lead paragraph, one supporting paragraph and the "event" quote. The HS definition quote and two paragraphs were removed.
+

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { ARTIST_NAME, CONTACT_EMAIL, NAV_LINKS as navLinks, SITE_NAME, mailtoEnquiry } from "@/lib/site";
+import { AboutArtistButton } from "@/components/artist-panel/ArtistPanel";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -31,6 +32,11 @@ export function Footer() {
                 <FooterLink href={link.href}>{link.label}</FooterLink>
               </li>
             ))}
+            <li>
+              <AboutArtistButton className="uppercase tracking-[0.24em] hover:text-copper-highlight transition-colors duration-500 ease-premium">
+                About the artist
+              </AboutArtistButton>
+            </li>
             <li>
               <a
                 href={mailtoEnquiry(`Enquiry — ${ARTIST_NAME}`)}

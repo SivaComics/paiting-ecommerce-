@@ -19,13 +19,23 @@ Neither PDF mentions Mr. Balu by name in the text itself. His name appears only 
 
 ## Opening
 
+The opening is now about the art. The commentary's diagram (square, circle, small triangle, centre point) draws itself in, and as the visitor scrolls it opens into painting No. 06. The artist's portrait, introduction and quote have moved into the "About the artist" panel.
+
 | On the site | Label | Source |
 |---|---|---|
-| "K. Balasubramanian" | From the article | Article title and text. The PDFs call him "Mr. Balu". |
 | "Reality expressed through remarkably few elements." | Close to the PDF | Essay: "Here, reality is expressed through remarkably few elements." |
-| "A painter who lives and works in Chennai, trained at the College of Arts and Crafts, Chennai, and has exhibited in India and abroad — from Chennai and Mumbai to Paris and Belgium." | **Written for the site, from article facts** | Article: post-diploma in painting, College of Arts and Crafts, Chennai, 1984; "lives and works in Chennai"; exhibitions in Chennai, Mumbai, Paris and Charleroi, Belgium |
+| "The circle retains." | **Exact quote** | Commentary, Energy section |
+| "Harmonious Science" (caption) | Written for the site | — |
+| "Original Paintings", "Paintings by K. Balasubramanian", "Painting No. 06", "View the paintings", "Scroll" | Written for the site | — |
+
+## About the artist (panel opened from "About" in the menu)
+
+| On the site | Label | Source |
+|---|---|---|
+| "K. Balasubramanian", "Painter · Chennai" | From the article | Article title and biography ("lives and works in Chennai") |
 | "My art reflects a life philosophy of taking things as they come, communicating the emotions through symbols and geometric forms." | **Exact quote (his words)** | Article |
-| "Original Paintings", "View the paintings", "Scroll", "The Artist" (portrait caption) | Written for the site | — |
+| Biography: training, exhibitions and awards | Close to the article | Article, biography, exhibitions and awards |
+| "A life in painting" timeline | Close to the article | Article. Each entry was checked word for word; "Alliance Franchise" is corrected to Alliance Française. |
 
 ## 01 · The Work
 
@@ -34,25 +44,15 @@ Neither PDF mentions Mr. Balu by name in the text itself. His name appears only 
 | "The Path Through Simplicity" | **Exact quote** | Essay heading |
 | "The artwork reveals depth through reduction." (under the heading; moved here from the opening) | **Exact quote** | Essay, The Path Through Simplicity |
 | "The small triangle introduces direction. The circle retains. The square contains. The empty field connects." | **Exact quote** | Commentary, Energy section |
-| "An artwork is the meeting point of experience and expectation in the premise of cognition." | **Exact quote** | Commentary |
 | "The paintings of K. Balasubramanian are made from very few elements: circle, triangle, square, colour, axis, centre, boundary." | Close to the PDF | Commentary: "Circle, Triangle, Square, Space, Colour, Axis, Centre, Boundary." (the site's list leaves out "space") |
 | "Large areas of the surface are left open." | Close to the PDF | Essay: "Large areas of space are not empty…" |
 | "There is almost no narrative, no landscape, no human drama." | Close to the PDF | Commentary: "we see almost no narrative. No landscape. No human drama." |
 | "Instead of accumulating complexity, the artist removes everything that appears unnecessary until only the essential relationships remain." | Close to the PDF | Essay (leaves out "progressively" and "visible") |
 | "Space is not empty; it participates in the composition." | Close to the PDF | Essay: "Large areas of space are not empty; they actively participate in the composition." |
 | "Silence becomes structure. Emptiness becomes presence." | **Exact quote** | Essay, Space and Density |
-| "…the geometry does not describe an object. It behaves like a sutra — a compressed statement that unfolds through contemplation." | Close to the PDF | Commentary: "The geometry is not describing an object; it is behaving like a sutra—a 'compressed statement' that unfolds through contemplation." |
-| "Very little happens on the surface, yet as one keeps looking, perception changes." | Close to the PDF | Commentary: "Very little is happening; Yet we simply keep looking; … the perception changes." |
-| "…not illustrations of Aagamic symbols, and they are not Yantras in the traditional ritual sense. They appear to emerge from the same cognitive process that produced Aagamic symbolism." | Close to the PDF | Commentary (two passages, joined) |
 | "The painting is not an object. It is an event between geometry, space, colour, and the observer." | **Exact quote** | Commentary, From HS |
 | "இது ஒரு நிகழ்வு" | **Exact quote** | Commentary |
 | "It is an event." (English meaning) | Written for the site | From the client brief |
-| "A definition from Harmonious Science", "About the artist" | Written for the site | — |
-| About the artist: post-diploma in painting, College of Arts and Crafts, Chennai (1984); lives and works in Chennai | Close to the article | Article, biography |
-| About the artist: exhibitions at Galerie Selective Art, Paris (2012); Jehangir Art Gallery, Mumbai (2008); Vinyasa Art Gallery, Chennai (2007 and 2008); Indian Pallet by Contemporary Painters, Charleroi, Belgium (1998) | Close to the article | Article, Exhibitions & Workshops |
-| About the artist: State Lalit Kala Academy Award (1998); International Airport Authority of India Gold Medal, Thanjavur (1998); Yali Foundation Honor for Excellence, Chennai (2000) | Close to the article | Article, Awards |
-| "A life in painting" (timeline label) | Written for the site | — |
-| Timeline: 1981 Nuances Group Show, Alliance Française, Chennai · 1984 post-diploma in painting, College of Arts and Crafts, Chennai · 1998 State Lalit Kala Academy Award and Indian Pallet by Contemporary Painters, Charleroi, Belgium · 2000 Yali Foundation Honor for Excellence, Chennai · 2008 group show, Jehangir Art Gallery, Mumbai · 2010 group show with Nehprii Amenii (USA), Studio Palazzo, Chennai · 2012 group show of 20 Indian artists, Galerie Selective Art, Paris | Close to the article | Article, biography, exhibitions and awards. Every entry was checked word for word against the live page. The article spells the Chennai venue "Alliance Franchise"; the site corrects this to Alliance Française. |
 
 ## 02 · The Paintings
 

@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { clsx } from "clsx";
 import { CartPopover } from "@/components/layout/CartPopover";
 import { NAV_LINKS as navLinks, SITE_NAME } from "@/lib/site";
+import { useArtistPanel } from "@/components/artist-panel/ArtistPanel";
 
 // Past this point the header can hide; above it, it's always shown.
 const REVEAL_ZONE_PX = 120;
@@ -16,6 +17,7 @@ const SCROLL_UP_TO_REVEAL_PX = 60;
 export function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const artistPanel = useArtistPanel();
 
   // Slides and fades away while scrolling down; slides back in when the
   // visitor scrolls up or returns to the top.
@@ -83,6 +85,14 @@ export function Header() {
                   <span className="copper-rule-bright absolute left-0 -bottom-0.5 w-0 transition-all duration-500 ease-premium group-hover:w-full" />
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={artistPanel.open}
+                className="group relative text-[12px] font-sans uppercase tracking-[0.26em] text-cream/75 hover:text-copper-highlight transition-colors duration-500 ease-premium py-1"
+              >
+                About
+                <span className="copper-rule-bright absolute left-0 -bottom-0.5 w-0 transition-all duration-500 ease-premium group-hover:w-full" />
+              </button>
             </nav>
 
             <div className="flex items-center gap-5">
@@ -121,6 +131,18 @@ export function Header() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    artistPanel.open();
+                  }}
+                  className="text-[13px] font-sans uppercase tracking-[0.26em] text-cream/75 hover:text-copper-highlight transition-colors duration-300 ease-premium"
+                >
+                  About
+                </button>
+              </li>
             </ul>
           </nav>
           {open && <div className="copper-rule-bright" aria-hidden="true" />}
